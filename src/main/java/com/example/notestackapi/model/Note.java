@@ -23,17 +23,20 @@ public class Note {
 
     private LocalDateTime createdAt;
 
+    private boolean archived = false;  // New field for archiving status
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     public Note() {}
 
-    public Note(String title, String content, LocalDateTime createdAt, User user) {
+    public Note(String title, String content, LocalDateTime createdAt, User user, boolean archived) {
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.user = user;
+        this.archived = archived;
     }
 
     public Long getId() {
@@ -66,6 +69,14 @@ public class Note {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 
     public User getUser() {

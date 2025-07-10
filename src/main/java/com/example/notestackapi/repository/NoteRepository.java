@@ -9,4 +9,6 @@ import com.example.notestackapi.model.User;
 
 public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> findByUser(User user);
+    List<Note> findByUserAndArchivedFalse(User user);  // Fetch non-archived notes
+    List<Note> findByUserAndArchivedTrue(User user);   // Fetch archived notes
 }
