@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.notestackapi.model.Note;
+import com.example.notestackapi.model.NotePriority;
 import com.example.notestackapi.model.User;
 import com.example.notestackapi.repository.NoteRepository;
 
@@ -17,28 +18,30 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
-    public Note createNote(User user, String title, String content) {
-        if (user == null) {
-            System.out.println("❌ User is null in createNote()");
-            throw new IllegalArgumentException("User cannot be null");
+    public Note createNote(User user, String title, String content, NotePriority priority) {
+        if (user == null || title == null || content == null || priority == null) {
+            throw new IllegalArgumentException("Missing required fields");
         }
-        
-        if (title == null || content == null) {
-            System.out.println("❌ Title or content is null in createNote()");
-            throw new IllegalArgumentException("Title and content cannot be null");
-        }
-
-        System.out.println("✅ Creating note for user: " + user.getEmail());
-        System.out.println("➡️ Title: " + title);
-        System.out.println("➡️ Content: " + content);
 
         Note note = new Note();
         note.setUser(user);
         note.setTitle(title);
         note.setContent(content);
+        note.setPriority(priority);
         note.setCreatedAt(LocalDateTime.now());
 
         return noteRepository.save(note);
+    }
+
+    public Note updateNote(Note note, String newTitle, String newContent, NotePriority newPriority) {
+        note.setTitle(newTitle);
+        note.setContent(newContent);
+        note.setPriority(newPriority);
+        return noteRepository.save(note);
+    }
+
+    public List<Note> getNotesByPriority(User user, NotePriority priority) {
+        return noteRepository.findByUserAndPriorityAndArchivedFalse(user, priority);
     }
 
     public List<Note> getNotes(User user) {
@@ -55,12 +58,6 @@ public class NoteService {
 
     public Note findById(Long id) {
         return noteRepository.findById(id).orElse(null);
-    }
-
-    public Note updateNote(Note note, String newTitle, String newContent) {
-        note.setTitle(newTitle);
-        note.setContent(newContent);
-        return noteRepository.save(note);
     }
 
     public void archiveNote(Long id) {

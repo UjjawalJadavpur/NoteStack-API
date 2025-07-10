@@ -4,11 +4,14 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.EnumType;
+
 
 @Entity
 public class Note {
@@ -23,13 +26,18 @@ public class Note {
 
     private LocalDateTime createdAt;
 
-    private boolean archived = false;  // New field for archiving status
+    private boolean archived = false; // New field for archiving status
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Note() {}
+    @Enumerated(EnumType.STRING) 
+    @Column(nullable = false)
+    private NotePriority priority = NotePriority.MEDIUM;
+
+    public Note() {
+    }
 
     public Note(String title, String content, LocalDateTime createdAt, User user, boolean archived) {
         this.title = title;
@@ -86,4 +94,13 @@ public class Note {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public NotePriority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(NotePriority priority) {
+        this.priority = priority;
+    }
+
 }

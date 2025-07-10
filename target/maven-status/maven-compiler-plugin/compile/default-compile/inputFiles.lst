@@ -7,6 +7,7 @@
 /home/nd-ll0225/Documents/Project 2/NoteStack-API/src/main/java/com/example/notestackapi/dto/NoteDTO.java
 /home/nd-ll0225/Documents/Project 2/NoteStack-API/src/main/java/com/example/notestackapi/dto/RegisterRequest.java
 /home/nd-ll0225/Documents/Project 2/NoteStack-API/src/main/java/com/example/notestackapi/model/Note.java
+/home/nd-ll0225/Documents/Project 2/NoteStack-API/src/main/java/com/example/notestackapi/model/NotePriority.java
 /home/nd-ll0225/Documents/Project 2/NoteStack-API/src/main/java/com/example/notestackapi/model/User.java
 /home/nd-ll0225/Documents/Project 2/NoteStack-API/src/main/java/com/example/notestackapi/repository/NoteRepository.java
 /home/nd-ll0225/Documents/Project 2/NoteStack-API/src/main/java/com/example/notestackapi/repository/UserRepository.java
