@@ -40,16 +40,21 @@ public class NoteService {
         return noteRepository.save(note);
     }
 
-    public List<Note> getNotesByPriority(User user, NotePriority priority) {
-        return noteRepository.findByUserAndPriorityAndArchivedFalse(user, priority);
+    // ✅ Main 3 filtering methods
+    public List<Note> getAllNotes(User user) {
+        return noteRepository.findByUser(user); // All notes
     }
 
-    public List<Note> getNotes(User user) {
-        return noteRepository.findByUserAndArchivedFalse(user); // Fetch only non-archived notes
+    public List<Note> getActiveNotes(User user) {
+        return noteRepository.findByUserAndArchivedFalse(user); // Only active
     }
 
     public List<Note> getArchivedNotes(User user) {
-        return noteRepository.findByUserAndArchivedTrue(user); // Fetch only archived notes
+        return noteRepository.findByUserAndArchivedTrue(user); // Only archived
+    }
+
+    public List<Note> getNotesByPriority(User user, NotePriority priority) {
+        return noteRepository.findByUserAndPriorityAndArchivedFalse(user, priority);
     }
 
     public void deleteNoteById(Long id) {
@@ -76,3 +81,4 @@ public class NoteService {
         }
     }
 }
+
